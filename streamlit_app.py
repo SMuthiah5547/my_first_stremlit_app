@@ -18,9 +18,13 @@ fruits_selected = st.multiselect("Pick some fruits:", list(my_fruit_list.index),
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 st.dataframe(fruits_to_show)
-st.header("Fruityvice Fruit Advice!")
 
-fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + "kiwi")
+st.header("Fruityvice Fruit Advice!")
+fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
+st.write('The user entered ', fruit_choice)
+
+
+fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 # st.text(fruityvice_response.json())
 
 # write your own comment - what does the next line do? - json_normalize() converts the nested dictionaries into separate columns for each key. 

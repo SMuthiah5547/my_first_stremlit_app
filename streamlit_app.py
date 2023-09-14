@@ -23,8 +23,9 @@ st.header("Fruityvice Fruit Advice!")
 fruityvice_response = rq.get("https://fruityvice.com/api/fruit/watermelon")
 st.text(fruityvice_response.json())
 
-# write your own comment -what does the next line do? 
+# write your own comment - what does the next line do? - json_normalize() converts the nested dictionaries into separate columns for each key. 
+# By default, the nested parts have column names in the format <parent key>.
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
-# write your own comment - what does this do?
+# write your own comment - Output the json output as table
 st.dataframe(fruityvice_normalized)

@@ -20,7 +20,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 st.dataframe(fruits_to_show)
 st.header("Fruityvice Fruit Advice!")
 
-fruityvice_response = rq.get("https://fruityvice.com/api/fruit/watermelon" + "kiwi")
+fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + "kiwi")
 # st.text(fruityvice_response.json())
 
 # write your own comment - what does the next line do? - json_normalize() converts the nested dictionaries into separate columns for each key. 

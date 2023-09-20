@@ -49,14 +49,29 @@ except URLError as e:
 # write your own comment - Output the json output as table
 # st.dataframe(fruityvice_normalized)
 
-st.stop()
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_rows = my_cur.fetchall()
 st.header("The Fruit list contains:")
-st.dataframe(my_data_rows)
+# snowflake related function
+def get_fruit_list();
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+    return my_cur.fetchall()
+
+# Add button to load fruit list
+if st.button('Get Fruit Load List'):
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  my_data_rows = get_fruit_list()
+  st.dataframe(my_data_rows)
+  
+st.stop()
+
+
+#my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+#my_cur = my_cnx.cursor()
+
+#my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+#my_data_rows = my_cur.fetchall()
+#st.header("The Fruit list contains:")
+#st.dataframe(my_data_rows)
 
 
 add_my_fruit = st.text_input('What fruit you would like to add:','')

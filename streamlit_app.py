@@ -40,6 +40,35 @@ except URLError as e:
   st.error()
 
 
+st.header("The Fruit list contains:")
+# snowflake related function
+def get_fruit_list():
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+    return my_cur.fetchall()
+
+# Allow the end user to add fruit to the list
+def insert_row_sf(new_fruit);
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from Streamlit')")
+    return "Thanks for adding: " + new_fruit
+
+
+# Add button to load fruit list
+if st.button('Get Fruit Load List'):
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  my_data_rows = get_fruit_list()
+  st.dataframe(my_data_rows)
+
+# Add button to add fruit to fruit list table
+add_my_fruit = st.text_input('What fruit you would like to add:','')
+if st.button('Add a Fruit to the list'):
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  back_from_function = insert_row_sf(add_my_fruit)
+  st.text(back_from_function)
+  
+st.stop()
+
 # st.write('The user entered ', fruit_choice)
 # fruityvice_response = rq.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 # st.text(fruityvice_response.json())
@@ -48,22 +77,6 @@ except URLError as e:
 # fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # write your own comment - Output the json output as table
 # st.dataframe(fruityvice_normalized)
-
-st.header("The Fruit list contains:")
-# snowflake related function
-def get_fruit_list():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-    return my_cur.fetchall()
-
-# Add button to load fruit list
-if st.button('Get Fruit Load List'):
-  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-  my_data_rows = get_fruit_list()
-  st.dataframe(my_data_rows)
-  
-st.stop()
-
 
 #my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 #my_cur = my_cnx.cursor()
@@ -74,7 +87,6 @@ st.stop()
 #st.dataframe(my_data_rows)
 
 
-add_my_fruit = st.text_input('What fruit you would like to add:','')
-st.write('Thanks for adding ', add_my_fruit)
-
-my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from Streamlit')")
+#add_my_fruit = st.text_input('What fruit you would like to add:','')
+#st.write('Thanks for adding ', add_my_fruit)
+#my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from Streamlit')")

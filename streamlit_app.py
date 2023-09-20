@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests as rq
-import snowflake.connector as sc
+import snowflake.connector
 
 st.title ("My Mom's New Healthy Diner")
 st.header("Breakfast Menu")
@@ -34,3 +34,10 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 # write your own comment - Output the json output as table
 st.dataframe(fruityvice_normalized)
+
+my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+my_data_row = my_cur.fetchone()
+st.text("Hello from Snowflake:")
+st.text(my_data_row)

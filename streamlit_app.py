@@ -48,7 +48,7 @@ def get_fruit_list():
     return my_cur.fetchall()
 
 # Allow the end user to add fruit to the list
-def insert_row_sf(new_fruit);
+def insert_row_sf(new_fruit):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from Streamlit')")
     return "Thanks for adding: " + new_fruit
